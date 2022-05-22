@@ -4,28 +4,55 @@
 
 
 ```python
+import bisect
+
 a = []  # Empty list
 
-a: list[int] = [1, 2]
-b: list[int] = [3, 4]
-a.append(5)
-b.append(6)
+a: list[int] = [10, 20]
+b: list[int] = [30, 40]
+a.append(50)  # Add item
+b.insert(2, 60)  # Inserts item at index
 print(a, b)
 
 a += b
 print(f"Add: {a}")
 
-a.sort()
-print(f"Sort: {a}")
-
 a.reverse()
 print(f"Reverse: {a}")
+
+b = sorted(a)  # Returns a new sorted list
+a.sort()  # Modifies the list in-place and has no return value
+print(f"Sort: {a}, {b}")
+
+print(bisect.bisect(a, 20))  # Locate the insertion point for value in a list to maintain sorted order
+
+bisect.insort(a, 12)  # Insert value in a list in sorted order
+print(a)
+
+s: str = "A whole string"
+list_of_chars: list = list(s)
+print(list_of_chars)
+list_of_words: list = s.split()
+print(list_of_words)
+
+i: int = list_of_chars.index("w")  # Returns index of the first occurrence or raises ValueError
+print(i)
+list_of_chars.remove("w")  # Removes first occurrence of the item or raises ValueError
+e = list_of_chars.pop(9)  # Removes and returns item at index or from the end.
+print(list_of_chars, e)
+a.clear()  # Removes all items
 ```
 
-    [1, 2, 5] [3, 4, 6]
-    Add: [1, 2, 5, 3, 4, 6]
-    Sort: [1, 2, 3, 4, 5, 6]
-    Reverse: [6, 5, 4, 3, 2, 1]
+    [10, 20, 50] [30, 40, 60]
+    Add: [10, 20, 50, 30, 40, 60]
+    Reverse: [60, 40, 30, 50, 20, 10]
+    Sort: [10, 20, 30, 40, 50, 60], [10, 20, 30, 40, 50, 60]
+    2
+    [10, 12, 20, 30, 40, 50, 60]
+    ['A', ' ', 'w', 'h', 'o', 'l', 'e', ' ', 's', 't', 'r', 'i', 'n', 'g']
+    ['A', 'whole', 'string']
+    2
+    ['A', ' ', 'h', 'o', 'l', 'e', ' ', 's', 't', 'i', 'n', 'g'] r
     
 
 ### Dictionary
@@ -49,6 +76,8 @@ print(k)
 print(v)
 print(k_v)
 
+print(f"Mapping: {k.mapping['Italy']}")
+
 d.update({"China": "Dumplings"})  # Adds item or replace one with matching keys
 print(f"Replace item: {d}")
 
@@ -64,18 +93,111 @@ b = {k: v for k, v in d.items() if "a" in k}  # Returns a dictionary, filtered b
 print(b)
 c = {k: v for k, v in d.items() if len(v) >= 7}  # Returns a dictionary, filtered by values
 print(c)
+
+d.clear() # Removes all items
 ```
 
     {'Italy': 'Pizza', 'US': 'Hot-Dog', 'China': 'Dim Sum'}
     dict_keys(['Italy', 'US', 'China'])
     dict_values(['Pizza', 'Hot-Dog', 'Dim Sum'])
     dict_items([('Italy', 'Pizza'), ('US', 'Hot-Dog'), ('China', 'Dim Sum')])
+    Mapping: Pizza
     Replace item: {'Italy': 'Pizza', 'US': 'Hot-Dog', 'China': 'Dumplings'}
     Read item: Dumplings
     Dictionary key doesn't exist
     {'Italy': 'Pizza', 'China': 'Dumplings'}
     {'US': 'Hot-Dog', 'China': 'Dumplings'}
     
+
+### defaultdict
+
+The *defaultdict* will create any items that you try to access (provided of course they do not exist yet) without throws a KeyError.
+
+
+```python
+from collections import defaultdict
+
+dd = defaultdict(int)  # defaultdict
+print(dd[10])  # print int(), thus 0
+
+dd = {}  # "Regular" dictionary
+# print(dd[10])  # throws KeyError
+```
+
+    0
+    
+
+### Counter
+
+A Counter is a dict subclass for counting hashable objects, it is a collection where elements are stored as dictionary keys and their counts are stored as dictionary values.
+
+
+```python
+from collections import Counter
+
+shirts_colors = ["red", "white", "blue", "white", "white", "black", "black"]
+c = Counter(shirts_colors)
+print(c)
+
+c["blue"] += 1
+print(f"After shopping: {c}")
+```
+
+    Counter({'white': 3, 'black': 2, 'red': 1, 'blue': 1})
+    After shopping: Counter({'white': 3, 'blue': 2, 'black': 2, 'red': 1})
+    
+
+### Set
+
+
+```python
+big_cities: set["str"] = {"New-York", "Los Angeles", "Ottawa"}
+american_cities: set["str"] = {"Chicago", "New-York", "Los Angeles"}
+
+big_cities |= {"Sydney"}  # Add item (or you can use add())
+american_cities |= {"Salt Lake City", "Seattle"}  # Add set (or you can use update())
+
+print(big_cities, american_cities)
+
+union_cities: set["str"] = big_cities | american_cities  # Or union()
+intersected_cities: set["str"] = big_cities & american_cities  # Or intersection()
+dif_cities: set["str"] = big_cities - american_cities  # Or difference()
+symdif_cities: set["str"] = big_cities ^ american_cities  # Or symmetric_difference()
+
+issub: bool = big_cities <= union_cities  # Or issubset()
+issuper: bool = american_cities >= dif_cities  # Or issuperset()
+
+print(union_cities)
+print(intersected_cities)
+print(dif_cities)
+print(symdif_cities)
+
+print(issub, issuper)
+
+big_cities.add("London")  # Add items
+
+big_cities.remove("Ottawa")  # Removes an item from the set if it is present or raises KeyError
+big_cities.discard("Los Angeles")  # Remove an item from the set if it is present without raising KeyError
+big_cities.pop()  # Remove and return a random item from the set or raises KeyError
+big_cities.clear()  # Removes all items from the set
+```
+
+    {'Los Angeles', 'Sydney', 'Ottawa', 'New-York'} {'Chicago', 'New-York', 'Salt Lake City', 'Los Angeles', 'Seattle'}
+    {'Ottawa', 'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago', 'New-York', 'Sydney'}
+    {'Los Angeles', 'New-York'}
+    {'Sydney', 'Ottawa'}
+    {'Sydney', 'Ottawa', 'Chicago', 'Salt Lake City', 'Seattle'}
+    True False
+    
+
+### Frozen Set
+
+Frozen set is just an immutable and hashable version of a set object. Frozen set can be used as key in Dictionary or as element of another set.
+
+
+```python
+s = frozenset({"New-York", "Los Angeles", "Ottawa"})
+```
 
 ### Tuple  
 Tuple is an immutable and hashable list
@@ -184,10 +306,24 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 21, 14, 12, 17, 898734))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 22, 17, 15, 7, 113637))
     
 
+Objects can be made immutable with *frozen=True*.
+
+
+```python
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class User:
+    name: str
+    account: int
+
+```
+
 ### Deque
+
 A thread-safe list with efficient appends and pops from either side.
 
 
@@ -213,6 +349,31 @@ print(d)
     deque([-1, 0, 1, 2, 3, 4, 5, 6], maxlen=1000)
     
 
+### Queue
+
+The queue module implements multi-producer, multi-consumer FIFO queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads. For LIFO queue use LifoQueue. For a priority queue use PriorityQueue.
+
+
+```python
+from queue import Queue
+q = Queue(maxsize=1000)
+
+q.put("eat", block=True, timeout=10)  # Put an element to the queue with 10 seconds timeuot, block if necessary until a free slot is available
+q.put("sleep")  # Default values block=True, timeout=None
+q.put("code")
+q.put_nowait("repeat")  # Equivalent to put("repeat", block=False). Put an element on the queue if a free slot is immediately available, else raise the queue.Full exception
+print(q.queue)
+
+a = q.get(block=True, timeout=10)  # Remove and return an item from the queue
+b = q.get()  # Default values block=True, timeout=None
+c = q.get_nowait()  # Equivalent to get(False)
+print(a, b, c, q.queue)
+```
+
+    deque(['eat', 'sleep', 'code', 'repeat'])
+    eat sleep code deque(['repeat'])
+    
+
 ### Array  
 Object type that can only hold numbers of a predefined type.
 
@@ -227,11 +388,111 @@ b = bytes(a2)
 print(a1)
 print(a2[0])
 print(b)
+
+print(a1.index(-4))  # Returns an index of a member or raises ValueError
 ```
 
     array('l', [1, 2, 3, -4])
     49
     b'1234567890'
+    3
+    
+
+### Generator
+
+Any function that contains a yield statement returns a generator.
+
+
+```python
+def count(start, step):
+    current = start
+    while True:
+        yield current
+        current += step
+
+c = count(100, 10)
+
+print(next(c))
+print(next(c))
+print(next(c))
+```
+
+    100
+    110
+    120
+    
+
+## String
+
+
+```python
+se: str = ""  # Empty string
+si: str = str(12345)  # Creates the string from int
+sj: str = " ".join(["Follow", "the", "white", "rabbit"])  # Joins items using string as a separator
+print(f"Joined string: {sj}")
+
+is_contains: bool = "rabbit" in sj  # Checks if string contains a substring
+print(f"is_contains = {is_contains}")
+
+sr: str  = sj.replace("rabbit", "sheep")  # Replaces substrings. Also you can use times:  sr: str  = sj.replace("rabbit", "sheep", times)
+print(f"After replace: {sr}")
+
+i1 = sr.find("rabbit")  # Returns start index of the first match or -1
+i2 = sr.index("sheep")  #  Returns start index of the first match or raises ValueError
+print(f"Start index of 'rabbit' is {i1}, start index of 'sheep' is {i2}")
+
+d = str.maketrans({"a" : "x", "b" : "y", "c" : "z"})
+st  = "abc".translate(d)
+print(f"Translate string: {st}")
+```
+
+    Joined string: Follow the white rabbit
+    is_contains = True
+    After replace: Follow the white sheep
+    Start index of 'rabbit' is -1, start index of 'sheep' is 17
+    Translate string: xyz
+    
+
+## Data querying
+
+### Sum, Count, Min, Max
+
+
+```python
+a: list[int] = [1, 2, 3, 4, 5, 2, 2]
+
+s = sum(a)
+print(s)
+
+c = a.count(2)  # Returns number of occurrences
+print(c)
+
+mn = min(a)
+print(mn)
+
+mx = max(a)
+print(mx)
+```
+
+    19
+    3
+    1
+    5
+    
+
+### Pairwise
+
+
+```python
+import itertools
+
+a = [1, 2, 3, 4, 5]
+p = itertools.pairwise(a)  # Returns successive overlapping pairs
+
+print(list(p))
+```
+
+    [(1, 2), (2, 3), (3, 4), (4, 5)]
     
 
 ## Exceptions
@@ -352,10 +613,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\pycs\PYCS.ipynb Cell 27' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/pycs/PYCS.ipynb#ch0000026?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/pycs/PYCS.ipynb#ch0000026?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/pycs/PYCS.ipynb#ch0000026?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 48' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000035?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000035?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000035?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
@@ -378,14 +639,70 @@ print(f"Right shift: 0b{b >> 4:08b}")
 print(f"Not: 0b{~a:08b}")
 ```
 
-    And: 0b00000000
-    Or: 0b11111111
-    Xor: 0b11111111
-    Left shift: 0b10101010000
-    Right shift: 0b00001010
-    Not: 0b-1010110
-    
+### Bit count
+
+
+```python
+a: int = 4242
+print(f"{a} in binary format: 0b{a:b}")
+
+c = a.bit_count()  # Returns the number of ones in the binary representation of the absolute value of the integer
+print(f"Bit count: {c}")
+```
+
+### Fractions
+
+
+```python
+from fractions import Fraction
+
+f = Fraction("0.2").as_integer_ratio()
+
+print(f)
+```
+
+### Euclidean distance between two points
+
+
+```python
+import math
+
+p1 = (0.22, 1, 12)
+p2 = (-0.12, 3, 7)
+
+print(math.dist(p1, p2))
+```
+
+## Random
+
+
+```python
+import random
+
+rf: float = random.random()  # A float inside [0, 1)
+print(f"Single float random: {rf}")
+
+ri: int = random.randint(1, 10)  # An int inside [from, to]
+print(f"Single int random: {ri}")
+
+rb = random.randbytes(10)
+print(f"Random bytes: {rb}")
+
+rc: str = random.choice(["Alice", "Bob", "Maggie", "Madhuri Dixit"])
+print(f"Random choice: {rc}")
+
+rs: str = random.sample([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)
+print(f"Random list without duplicates: {rs}")
+
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(f"List before shuffle: {a}")
+random.shuffle(a)
+print(f"List after shuffle: {a}")
+
+```
 
 ## Sources  
 [docs.python.org](https://docs.python.org/)  
-[Python Cheatsheet](https://github.com/gto76/python-cheatsheet)
+[Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
+[The Hitchhiker’s Guide to Python](https://docs.python-guide.org/)  
+[Joel Grus, "Data Science from Scratch"](https://github.com/joelgrus/data-science-from-scratch)  
