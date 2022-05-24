@@ -1,3 +1,5 @@
+# Interactive Python Cheatsheet in Jupiter notebook format
+
 ## Data structures
 
 ### List
@@ -283,6 +285,38 @@ print(list_of_members, "\n",
      Currency.us_dollar
     
 
+### Range
+
+
+```python
+
+r1: range = range(11)  # Creates a sequence of numbers from 0 to 10
+r2: range = range(5, 21) # Creates a sequence of numbers from 5 to 20
+r3: range = range(20, 9, -2)  # Creates a sequence of numbers from 20 to 10 with step 2
+
+print("To exclusive: ", end="")
+for i in r1:
+  print(f"{i} ", end="")
+
+print("\nFrom inclusive to exclusive: ", end="")
+for i in r2:
+  print(f"{i} ", end="")
+
+print("\nFrom inclusive to exclusive with step: ", end="")
+for i in r3:
+  print(f"{i} ", end="")
+
+print(f"\nFrom = {r3.start}")
+print(f"To = {r3.stop}")
+```
+
+    To exclusive: 0 1 2 3 4 5 6 7 8 9 10 
+    From inclusive to exclusive: 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+    From inclusive to exclusive with step: 20 18 16 14 12 10 
+    From = 20
+    To = 9
+    
+
 ### Dataclass  
 Decorator that automatically generates init(), repr() and eq() special methods
 
@@ -306,7 +340,7 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 22, 17, 15, 7, 113637))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 24, 17, 47, 47, 365160))
     
 
 Objects can be made immutable with *frozen=True*.
@@ -432,7 +466,9 @@ sj: str = " ".join(["Follow", "the", "white", "rabbit"])  # Joins items using st
 print(f"Joined string: {sj}")
 
 is_contains: bool = "rabbit" in sj  # Checks if string contains a substring
-print(f"is_contains = {is_contains}")
+is_startswith = sj.startswith("Foll")
+is_endswith = sj.endswith("bbit")
+print(f"is_contains = {is_contains}, is_startswith = {is_startswith}, is_endswith = {is_endswith}")
 
 sr: str  = sj.replace("rabbit", "sheep")  # Replaces substrings. Also you can use times:  sr: str  = sj.replace("rabbit", "sheep", times)
 print(f"After replace: {sr}")
@@ -447,11 +483,49 @@ print(f"Translate string: {st}")
 ```
 
     Joined string: Follow the white rabbit
-    is_contains = True
+    is_contains = True, is_startswith = True, is_endswith = True
     After replace: Follow the white sheep
     Start index of 'rabbit' is -1, start index of 'sheep' is 17
     Translate string: xyz
     
+
+### JSON
+
+Human-readable text format to store and transmit data objects.
+
+
+```python
+import json
+
+d: dict = {1: "Lemon", 2: "Apple", 3: "Banana!"}
+
+object_as_string: str = json.dumps(d, indent=2)
+print(object_as_string)
+
+restored_object = json.loads(object_as_string)
+
+# Write object to JSON file
+with open("1.json", 'w', encoding='utf-8') as file:
+    json.dump(d, file, indent=2)
+
+# Read object from JSON file
+with open("1.json", encoding='utf-8') as file:
+    restored_from_file = json.load(file)
+print(restored_from_file)
+
+```
+
+    {
+      "1": "Lemon",
+      "2": "Apple",
+      "3": "Banana!"
+    }
+    {'1': 'Lemon', '2': 'Apple', '3': 'Banana!'}
+    
+
+### Pickle
+
+Binary file format to store and transmit data objects.
 
 ## Data querying
 
@@ -613,16 +687,46 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 48' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000035?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000035?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000035?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 54' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
 
 
 ## Math
+
+### Basic Math
+
+
+```python
+from math import pi
+
+a: float = pi ** 2  # Or pow(pi, 2)
+print(f"Power: {a}")
+
+b: float = round(pi, 2)
+print(f"Round: {b}")
+
+c: int = round(256, -2)
+print(f"Int round: {c}")
+
+d: float = abs(-pi)
+print(f"Abs: {d}")
+
+e: float = abs(10+10j)  # Or e: float = abs(complex(real=10, imag=10))
+print(f"Complex abs: {e}")
+
+```
+
+    Power: 9.869604401089358
+    Round: 3.14
+    Int round: 300
+    Abs: 3.141592653589793
+    Complex abs: 14.142135623730951
+    
 
 ### Bitwise Operators
 
@@ -639,6 +743,14 @@ print(f"Right shift: 0b{b >> 4:08b}")
 print(f"Not: 0b{~a:08b}")
 ```
 
+    And: 0b00000000
+    Or: 0b11111111
+    Xor: 0b11111111
+    Left shift: 0b10101010000
+    Right shift: 0b00001010
+    Not: 0b-1010110
+    
+
 ### Bit count
 
 
@@ -649,6 +761,10 @@ print(f"{a} in binary format: 0b{a:b}")
 c = a.bit_count()  # Returns the number of ones in the binary representation of the absolute value of the integer
 print(f"Bit count: {c}")
 ```
+
+    4242 in binary format: 0b1000010010010
+    Bit count: 4
+    
 
 ### Fractions
 
@@ -661,6 +777,9 @@ f = Fraction("0.2").as_integer_ratio()
 print(f)
 ```
 
+    (1, 5)
+    
+
 ### Euclidean distance between two points
 
 
@@ -672,6 +791,9 @@ p2 = (-0.12, 3, 7)
 
 print(math.dist(p1, p2))
 ```
+
+    5.39588732276722
+    
 
 ## Random
 
@@ -700,6 +822,15 @@ random.shuffle(a)
 print(f"List after shuffle: {a}")
 
 ```
+
+    Single float random: 0.04630418772344136
+    Single int random: 7
+    Random bytes: b'\x10\x95&\x96\xdc\xc7D%\xeeJ'
+    Random choice: Bob
+    Random list without duplicates: [8, 3, 5, 9, 7]
+    List before shuffle: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    List after shuffle: [8, 3, 10, 9, 2, 6, 4, 7, 1, 5]
+    
 
 ## Sources  
 [docs.python.org](https://docs.python.org/)  
