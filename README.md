@@ -832,6 +832,95 @@ print(f"List after shuffle: {a}")
     List after shuffle: [8, 3, 10, 9, 2, 6, 4, 7, 1, 5]
     
 
+## Profiling
+
+### Stopwatch
+
+
+```python
+from time import time
+start_time = time()
+
+j: int = 0
+for i in range(10_000_000):  # Long operation
+    j = i ** 2
+
+duration = time() - start_time
+print(f"{duration} seconds")
+```
+
+    2.3784937858581543 seconds
+    
+
+### High performance
+
+
+```python
+from time import perf_counter
+start_time = perf_counter()
+
+j: int = 0
+for i in range(10_000_000):  # Long operation
+    j = i ** 2
+
+duration = perf_counter() - start_time
+print(f"{duration} seconds")
+```
+
+    2.226437000092119 seconds
+    
+
+### timeit
+
+Try to avoid a number of common traps for measuring execution times
+
+
+```python
+from timeit import timeit
+
+def long_pow():
+    j: int = 0
+    for i in range(1000_000):  # Long operation
+        j = i ** 2
+
+timeit("long_pow()", number=10, globals=globals(), setup='pass')
+```
+
+
+
+
+    1.8339518001303077
+
+
+
+### Call Graph
+
+Generates a PNG image of the call graph with highlighted bottlenecks
+
+
+```python
+from pycallgraph3 import PyCallGraph
+from pycallgraph3.output import GraphvizOutput
+
+def long_pow():
+    j: int = 0
+    for i in range(1000_000):  # Long operation
+        j = i ** 2
+
+def short_pow():
+    j: int = 0
+    for i in range(1000):  # Short operation
+        j = i ** 2
+
+with PyCallGraph(output=GraphvizOutput()):
+    # Code to be profiled
+    long_pow()
+    short_pow()
+    # This will generate a file called pycallgraph3.png
+```
+
+<img src="pycallgraph3.png" style="height:400px">
+
 ## Sources  
 [docs.python.org](https://docs.python.org/)  
 [Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
