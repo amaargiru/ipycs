@@ -511,6 +511,7 @@ with open("1.json", 'w', encoding='utf-8') as file:
 # Read object from JSON file
 with open("1.json", encoding='utf-8') as file:
     restored_from_file = json.load(file)
+    
 print(restored_from_file)
 
 ```
@@ -526,6 +527,26 @@ print(restored_from_file)
 ### Pickle
 
 Binary file format to store and transmit data objects.
+
+
+```python
+import pickle
+
+d: dict = {1: "Lemon", 2: "Apple", 3: "Banana!"}
+
+# Write object to binary file
+with open("1.bin", "wb") as file:
+    pickle.dump(d, file)
+
+# Read object from file
+with open("1.bin", "rb") as file:
+    restored_from_file = pickle.load(file)
+
+print(restored_from_file)
+```
+
+    {1: 'Lemon', 2: 'Apple', 3: 'Banana!'}
+    
 
 ## Data querying
 
@@ -635,8 +656,19 @@ except ValueError:
     # raise # We can re-raise exception
 ```
 
-    We have ValueError, as a planned!
+
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 50' in <cell line: 1>()
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=0'>1</a> def div(a: Decimal, b: Decimal) -> Decimal:
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=1'>2</a>     if b == 0:
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=2'>3</a>         raise ValueError("Second argument must be non-zero")
     
+
+    NameError: name 'Decimal' is not defined
+
 
 ### Built-in Exceptions
 ```text
