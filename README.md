@@ -19,8 +19,9 @@ print(a, b)
 a += b
 print(f"Add: {a}")
 
+b = list(reversed(a))  # reversed() returns reversed iterator, not list
 a.reverse()
-print(f"Reverse: {a}")
+print(f"Reverse: {a}, {b}")
 
 b = sorted(a)  # Returns a new sorted list
 a.sort()  # Modifies the list in-place and has no return value
@@ -47,7 +48,7 @@ a.clear()  # Removes all items
 
     [10, 20, 50] [30, 40, 60]
     Add: [10, 20, 50, 30, 40, 60]
-    Reverse: [60, 40, 30, 50, 20, 10]
+    Reverse: [60, 40, 30, 50, 20, 10], [60, 40, 30, 50, 20, 10]
     Sort: [10, 20, 30, 40, 50, 60], [10, 20, 30, 40, 50, 60]
     2
     [10, 12, 20, 30, 40, 50, 60]
@@ -184,11 +185,11 @@ big_cities.pop()  # Remove and return a random item from the set or raises KeyEr
 big_cities.clear()  # Removes all items from the set
 ```
 
-    {'Los Angeles', 'Sydney', 'Ottawa', 'New-York'} {'Chicago', 'New-York', 'Salt Lake City', 'Los Angeles', 'Seattle'}
-    {'Ottawa', 'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago', 'New-York', 'Sydney'}
-    {'Los Angeles', 'New-York'}
-    {'Sydney', 'Ottawa'}
-    {'Sydney', 'Ottawa', 'Chicago', 'Salt Lake City', 'Seattle'}
+    {'New-York', 'Ottawa', 'Sydney', 'Los Angeles'} {'New-York', 'Chicago', 'Seattle', 'Salt Lake City', 'Los Angeles'}
+    {'Chicago', 'Salt Lake City', 'New-York', 'Ottawa', 'Seattle', 'Los Angeles', 'Sydney'}
+    {'New-York', 'Los Angeles'}
+    {'Ottawa', 'Sydney'}
+    {'Ottawa', 'Chicago', 'Seattle', 'Salt Lake City', 'Sydney'}
     True False
     
 
@@ -340,7 +341,7 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 24, 17, 47, 47, 365160))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 26, 17, 56, 14, 318575))
     
 
 Objects can be made immutable with *frozen=True*.
@@ -489,7 +490,7 @@ print(f"Translate string: {st}")
     Translate string: xyz
     
 
-lower(), upper(), capitalize() and title()
+### lower(), upper(), capitalize() and title()
 
 
 ```python
@@ -511,7 +512,7 @@ print(s.title())
 
 ```text
 +---------------+----------+----------+----------+----------+----------+
-|               | [ !#$%…] | [a-zA-Z] |  [¼½¾]   |  [²³¹]   |  [0-9]   |
+|               | [ !#$%…] | [a-zA-Z] |  [½¼¾]   |  [²³¹]   |  [0-9]   |
 +---------------+----------+----------+----------+----------+----------+
 | isprintable() |   yes    |   yes    |   yes    |   yes    |   yes    |
 | isalnum()     |          |   yes    |   yes    |   yes    |   yes    |
@@ -522,6 +523,32 @@ print(s.title())
 ```
 
 *isspace()* checks for *[ \t\n\r\f\v\x1c-\x1f\x85…]*
+
+### strip(), split()
+
+
+```python
+s: str = "  ~~##A big hahaha##~~  "
+
+s = s.strip()  # Strips all whitespace characters from both ends
+print(s)
+
+s = s.strip("~#")  # Strips all passed characters from both ends
+print(s)
+
+s = s.lstrip(" A")  # Strips all passed characters from left end
+print(s)
+
+s = s.rstrip("ah")  # Strips all passed characters from right end
+print(s)
+
+```
+
+    ~~##A big hahaha##~~
+    A big hahaha
+    big hahaha
+    big 
+    
 
 ### JSON
 
@@ -688,19 +715,8 @@ except ValueError:
     # raise # We can re-raise exception
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 53' in <cell line: 1>()
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=0'>1</a> def div(a: Decimal, b: Decimal) -> Decimal:
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=1'>2</a>     if b == 0:
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=2'>3</a>         raise ValueError("Second argument must be non-zero")
+    We have ValueError, as a planned!
     
-
-    NameError: name 'Decimal' is not defined
-
 
 ### Built-in Exceptions
 ```text
@@ -751,10 +767,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 54' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 60' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000057?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000057?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000057?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
