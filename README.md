@@ -489,6 +489,40 @@ print(f"Translate string: {st}")
     Translate string: xyz
     
 
+lower(), upper(), capitalize() and title()
+
+
+```python
+s: str = "camelCase string"
+
+print(s.lower())
+print(s.upper())
+print(s.capitalize())
+print(s.title())
+```
+
+    camelcase string
+    CAMELCASE STRING
+    Camelcase string
+    Camelcase String
+    
+
+### Property Methods
+
+```text
++---------------+----------+----------+----------+----------+----------+
+|               | [ !#$%…] | [a-zA-Z] |  [¼½¾]   |  [²³¹]   |  [0-9]   |
++---------------+----------+----------+----------+----------+----------+
+| isprintable() |   yes    |   yes    |   yes    |   yes    |   yes    |
+| isalnum()     |          |   yes    |   yes    |   yes    |   yes    |
+| isnumeric()   |          |          |   yes    |   yes    |   yes    |
+| isdigit()     |          |          |          |   yes    |   yes    |
+| isdecimal()   |          |          |          |          |   yes    |
++---------------+----------+----------+----------+----------+----------+
+```
+
+*isspace()* checks for *[ \t\n\r\f\v\x1c-\x1f\x85…]*
+
 ### JSON
 
 Human-readable text format to store and transmit data objects.
@@ -610,9 +644,7 @@ except ZeroDivisionError as e:
     Error: division by zero
     
 
-Complex Example.  
-Code inside the *else* block will only be executed if *try* block had no exceptions.  
-Code inside the *finally* block will always be executed (unless a signal is received).  
+More complex example. Code inside the *else* block will only be executed if *try* block had no exceptions. Code inside the *finally* block will always be executed (unless a signal is received).
 
 
 ```python
@@ -661,7 +693,7 @@ except ValueError:
 
     NameError                                 Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 50' in <cell line: 1>()
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 53' in <cell line: 1>()
     ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=0'>1</a> def div(a: Decimal, b: Decimal) -> Decimal:
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=1'>2</a>     if b == 0:
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000048?line=2'>3</a>         raise ValueError("Second argument must be non-zero")
