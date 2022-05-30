@@ -524,7 +524,7 @@ print(s.title())
 
 *isspace()* checks for *[ \t\n\r\f\v\x1c-\x1f\x85…]*
 
-### strip(), split()
+### strip()
 
 
 ```python
@@ -548,6 +548,37 @@ print(s)
     A big hahaha
     big hahaha
     big 
+    
+
+### split()
+
+
+```python
+s1: str = "Follow the white rabbit, Neo"
+
+c1 = s1.split()  # Splits on one or more whitespace characters
+print(c1)
+
+c2 = s1.split(sep=", ", maxsplit=1)  # Splits on "sep" str at most "maxsplit" times
+print(c2)
+
+s2: str = "Beware the Jabberwock, my son!\n The jaws that bite, the claws that catch!"
+
+c3 = s2.splitlines(keepends=False)  # On [\n\r\f\v\x1c-\x1e\x85\u2028\u2029] and \r\n.
+print(c3)
+
+# split() vs rsplit()
+
+c4 = s2.split(maxsplit=2)
+c5 = s2.rsplit(maxsplit=2)
+
+print(c4, c5)
+```
+
+    ['Follow', 'the', 'white', 'rabbit,', 'Neo']
+    ['Follow the white rabbit', 'Neo']
+    ['Beware the Jabberwock, my son!', ' The jaws that bite, the claws that catch!']
+    ['Beware', 'the', 'Jabberwock, my son!\n The jaws that bite, the claws that catch!'] ['Beware the Jabberwock, my son!\n The jaws that bite, the claws', 'that', 'catch!']
     
 
 ### JSON
@@ -607,6 +638,111 @@ print(restored_from_file)
 ```
 
     {1: 'Lemon', 2: 'Apple', 3: 'Banana!'}
+    
+
+## Datetime
+
+Module 'datetime' provides 'date' `<D>`, 'time' `<T>`, 'datetime' `<DT>` and 'timedelta' `<TD>` classes. All are immutable and hashable.
+
+### Constructors
+
+
+```python
+from datetime import date, time, datetime, timedelta
+
+d: date = date(year=1964, month=9, day=2)
+t: time  = time(hour=12, minute=30, second=0, microsecond=0, tzinfo=None, fold=0)
+dt: datetime = datetime(year=1964, month=9, day=2, hour=10, minute=30, second=0)
+td: timedelta = timedelta(weeks=1, days=1, hours=12, minutes=13, seconds=14)
+
+print (f"{d}\n {t}\n {dt}\n {td}")
+```
+
+    1964-09-02
+     12:30:00
+     1964-09-02 10:30:00
+     8 days, 12:13:14
+    
+
+### Now
+
+
+```python
+from datetime import date, time, datetime
+import pytz
+
+d: date  = date.today()
+dt1: datetime = datetime.today()
+dt2: datetime = datetime.utcnow()
+dt3: datetime = datetime.now(pytz.timezone('US/Pacific'))
+
+print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
+
+```
+
+    2022-05-30
+     2022-05-30 19:52:52.856413
+     2022-05-30 14:52:52.856413
+     2022-05-30 07:52:52.856413-07:00
+    
+
+### Timezone
+
+
+```python
+from datetime import date, time, datetime, timedelta, tzinfo
+from dateutil.tz import UTC, tzlocal, gettz, datetime_exists, resolve_imaginary
+
+tz1: tzinfo = UTC  # UTC timezone
+
+tz2: tzinfo = tzlocal()  # Local timezone
+tz3: tzinfo = gettz()  # Local timezone
+
+tz4: tzinfo = gettz("America/Chicago")  # "Asia/Kolkata" etc. See full list at en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+local_dt = datetime.today()
+utc_dt = local_dt.astimezone(UTC)  # Convert local datetime to UTC datetime
+
+print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
+```
+
+    tzutc()
+     tzlocal()
+     tzlocal()
+     tzfile('US/Central')
+     2022-05-30 19:56:04.568195
+     2022-05-30 14:56:04.568195+00:00
+    
+
+### Arithmetics
+
+
+```python
+from datetime import date, time, datetime, timedelta
+from dateutil.tz import UTC, tzlocal, gettz, datetime_exists, resolve_imaginary
+
+d: date  = date.today()
+dt1: datetime = datetime.today()
+dt2: datetime = datetime(year=1981, month=12, day=2)
+td1: timedelta = timedelta(days=5)
+td2: timedelta = timedelta(days=1)
+
+d = d + td1  # date = date ± timedelta
+dt3 = dt1 - td1  # datetime = datetime ± timedelta
+
+td3 = dt1 - dt2  # timedelta = datetime - datetime
+
+td4 = 10 * td1  # timedelta = const * timedelta
+c: float = td1/td2  # timedelta/timedelta
+
+print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
+```
+
+    2022-06-04
+     2022-05-25 20:16:13.235705
+     14789 days, 20:16:13.235705
+     50 days, 0:00:00
+     5.0
     
 
 ## Data querying
@@ -702,6 +838,8 @@ finally:
 
 
 ```python
+from decimal import *
+
 def div(a: Decimal, b: Decimal) -> Decimal:
     if b == 0:
         raise ValueError("Second argument must be non-zero")
@@ -767,14 +905,25 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 60' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000057?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000057?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000057?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 70' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
 
+
+### Exception Object
+
+```python
+arguments = <name>.args
+exc_type  = <name>.__class__
+filename  = <name>.__traceback__.tb_frame.f_code.co_filename
+func_name = <name>.__traceback__.tb_frame.f_code.co_name
+line      = linecache.getline(filename, <name>.__traceback__.tb_lineno)
+error_msg = ''.join(traceback.format_exception(exc_type, <name>, <name>.__traceback__))
+```
 
 ## Math
 
