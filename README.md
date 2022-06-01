@@ -528,7 +528,7 @@ print(s.title())
 
 
 ```python
-s: str = "  ~~##A big hahaha##~~  "
+s: str = "  ~~##A big blahblahblah##~~  "
 
 s = s.strip()  # Strips all whitespace characters from both ends
 print(s)
@@ -539,14 +539,14 @@ print(s)
 s = s.lstrip(" A")  # Strips all passed characters from left end
 print(s)
 
-s = s.rstrip("ah")  # Strips all passed characters from right end
+s = s.rstrip("habl")  # Strips all passed characters from right end
 print(s)
 
 ```
 
-    ~~##A big hahaha##~~
-    A big hahaha
-    big hahaha
+    ~~##A big blahblahblah##~~
+    A big blahblahblah
+    big blahblahblah
     big 
     
 
@@ -640,9 +640,73 @@ print(restored_from_file)
     {1: 'Lemon', 2: 'Apple', 3: 'Banana!'}
     
 
+### Bytes
+
+Bytes object is an immutable sequence of single bytes. Mutable version is called bytearray.
+
+
+```python
+
+### Encode
+b1 = bytes([1, 2, 3, 4])  # Ints must be in range from 0 to 255
+b2 = "The String".encode('utf-8')
+b3 = (-1024).to_bytes(4, byteorder='big', signed=True)  # byteorder="big"/"little"/"sys.byteorder", signed=False/True
+b4 = bytes.fromhex('FEADCA')  # Hex pairs can be separated by spaces
+b5 = bytes(range(10,30,2))
+
+print(b1, b2, b3, b4, b5)
+
+### Decode
+c: list = list(b"\xfc\x00\x00\x00\x00\x01")  # Returns ints in range from 0 to 255
+s: str = b'The String'.decode("utf-8")
+b: int = int.from_bytes(b"\xfc\x00", byteorder='big', signed=False)  # byteorder="big"/"little"/"sys.byteorder", signed=False/True
+s2: str = b"\xfc\x00\x00\x00\x00\x01".hex(" ")  # Returns a string of hexadecimal pairs, hex pairs can be separated by spaces
+
+print(c, s, b, s2)
+
+with open("1.bin", "wb") as file:  # Write bytes to file
+    file.write(b1)
+
+with open("1.bin", "rb") as file:  # Read bytes from file
+    b6 = file.read()
+
+print(b6)
+```
+
+    b'\x01\x02\x03\x04' b'The String' b'\xff\xff\xfc\x00' b'\xfe\xad\xca' b'\n\x0c\x0e\x10\x12\x14\x16\x18\x1a\x1c'
+    [252, 0, 0, 0, 0, 1] The String 64512 fc 00 00 00 00 01
+    b'\x01\x02\x03\x04'
+    
+
+### Struct
+
+Module that performs conversions between a sequence of numbers and a bytes object. System’s type sizes and byte order are used by default.
+
+
+```python
+from struct import pack, unpack, iter_unpack
+
+b = pack(">hhll", 1, 2, 3, 4)
+print(b)
+
+t = unpack(">hhll", b)
+print(t)
+
+i = pack("ii", 1, 2) * 5
+print(i)
+
+print(list(iter_unpack('ii', i)))
+```
+
+    b'\x00\x01\x00\x02\x00\x00\x00\x03\x00\x00\x00\x04'
+    (1, 2, 3, 4)
+    b'\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00'
+    [(1, 2), (1, 2), (1, 2), (1, 2), (1, 2)]
+    
+
 ## Datetime
 
-Module 'datetime' provides 'date' `<D>`, 'time' `<T>`, 'datetime' `<DT>` and 'timedelta' `<TD>` classes. All are immutable and hashable.
+Module *datetime* provides *date*, *time*, *datetime* and *timedelta*. All are immutable and hashable
 
 ### Constructors
 
@@ -680,10 +744,10 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 
 ```
 
-    2022-05-30
-     2022-05-30 19:52:52.856413
-     2022-05-30 14:52:52.856413
-     2022-05-30 07:52:52.856413-07:00
+    2022-06-01
+     2022-06-01 19:13:11.101124
+     2022-06-01 14:13:11.101123
+     2022-06-01 07:13:11.101123-07:00
     
 
 ### Timezone
@@ -710,8 +774,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-05-30 19:56:04.568195
-     2022-05-30 14:56:04.568195+00:00
+     2022-06-01 19:13:11.165941
+     2022-06-01 14:13:11.165941+00:00
     
 
 ### Arithmetics
@@ -738,9 +802,9 @@ c: float = td1/td2  # timedelta/timedelta
 print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
-    2022-06-04
-     2022-05-25 20:16:13.235705
-     14789 days, 20:16:13.235705
+    2022-06-06
+     2022-05-27 19:13:11.216804
+     14791 days, 19:13:11.216804
      50 days, 0:00:00
      5.0
     
@@ -905,7 +969,7 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 70' in <cell line: 4>()
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 74' in <cell line: 4>()
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=0'>1</a> class MyException(Exception):
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=1'>2</a>     pass
     ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=3'>4</a> raise MyException("My car is broken")
@@ -918,10 +982,10 @@ raise MyException("My car is broken")
 
 ```python
 arguments = <name>.args
-exc_type  = <name>.__class__
-filename  = <name>.__traceback__.tb_frame.f_code.co_filename
+exc_type = <name>.__class__
+filename = <name>.__traceback__.tb_frame.f_code.co_filename
 func_name = <name>.__traceback__.tb_frame.f_code.co_name
-line      = linecache.getline(filename, <name>.__traceback__.tb_lineno)
+line = linecache.getline(filename, <name>.__traceback__.tb_lineno)
 error_msg = ''.join(traceback.format_exception(exc_type, <name>, <name>.__traceback__))
 ```
 
@@ -1153,5 +1217,8 @@ with PyCallGraph(output=GraphvizOutput()):
 ## Sources  
 [docs.python.org](https://docs.python.org/)  
 [Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
-[The Hitchhiker’s Guide to Python](https://docs.python-guide.org/)  
+["The Hitchhiker’s Guide to Python"](https://docs.python-guide.org/)  
 [Joel Grus, "Data Science from Scratch"](https://github.com/joelgrus/data-science-from-scratch)  
+["Python 3 Patterns, Recipes and Idioms"](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/index.html)  
+["Python Notes for Professionals"](https://goalkicker.com/PythonBook/)  
+[Mark Lutz, "Learning Python"](https://drive.google.com/file/d/0B2Y-n6IlHYliSXZxMk0xT0NSY1E/preview)  
