@@ -1,4 +1,4 @@
-# Interactive Python Cheatsheet in Jupiter notebook format
+## **Interactive Python Cheatsheet** *in Jupiter notebook format*
 
 ## Data structures
 
@@ -744,10 +744,10 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 
 ```
 
-    2022-06-01
-     2022-06-01 19:13:11.101124
-     2022-06-01 14:13:11.101123
-     2022-06-01 07:13:11.101123-07:00
+    2022-06-02
+     2022-06-02 11:33:20.164132
+     2022-06-02 06:33:20.164131
+     2022-06-01 23:33:20.164131-07:00
     
 
 ### Timezone
@@ -774,8 +774,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-06-01 19:13:11.165941
-     2022-06-01 14:13:11.165941+00:00
+     2022-06-02 11:33:20.211656
+     2022-06-02 06:33:20.211656+00:00
     
 
 ### Arithmetics
@@ -802,9 +802,9 @@ c: float = td1/td2  # timedelta/timedelta
 print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
-    2022-06-06
-     2022-05-27 19:13:11.216804
-     14791 days, 19:13:11.216804
+    2022-06-07
+     2022-05-28 11:33:20.257323
+     14792 days, 11:33:20.257323
      50 days, 0:00:00
      5.0
     
@@ -849,6 +849,90 @@ print(list(p))
 ```
 
     [(1, 2), (2, 3), (3, 4), (4, 5)]
+    
+
+### Encryption and Decryption
+
+
+```python
+import hashlib
+
+# pip install pycryptodomex
+from Cryptodome import Random
+from Cryptodome.Cipher import AES
+from Cryptodome.Util.Padding import pad
+from Cryptodome.Util.Padding import unpad
+
+def encrypt_data(password: str, raw_data) -> bytes:
+    res = bytes()
+    try:
+        key = hashlib.sha256(password.encode()).digest()
+        align_raw = pad(raw_data, AES.block_size)
+        iv = Random.new().read(AES.block_size)
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        ciphered_data = cipher.encrypt(align_raw)
+        res = iv + ciphered_data
+    except Exception as e:
+        print(f"Encrypt error: {str(e)}")
+    return res
+
+def decrypt_data(password: str, encrypted_data) -> bytes:
+    res = bytes()
+    try:
+        key = hashlib.sha256(password.encode()).digest()
+        iv = encrypted_data[:AES.block_size]
+        ciphered_data = encrypted_data[AES.block_size:]
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        decrypt_data = cipher.decrypt(ciphered_data)
+        res = unpad(decrypt_data, AES.block_size)
+    except Exception as e:
+        print(f"Decrypt error: {str(e)}")
+    return res
+
+def encrypt_file(src_file: str, dst_file: str, password: str) -> bool:
+    try:
+        with open(src_file, "rb") as reader, open(dst_file, "wb") as writer:
+            data = reader.read()
+            data_enc = encrypt_data(password, data)
+            writer.write(data_enc)
+            writer.flush()
+            print(f"{src_file} encrypted into {dst_file}")
+        return True
+    except Exception as e:
+        print(f"Encrypt_file error: {str(e)}")
+        return False
+
+def decrypt_file(src_file: str, dst_file: str, password: str) -> bool:
+    try:
+        with open(src_file, "rb") as reader, open(dst_file, "wb") as writer:
+            data = reader.read()
+            data_decrypt = decrypt_data(password, data)
+            writer.write(data_decrypt)
+            writer.flush()
+            print(f"{src_file} decrypted into {dst_file}")
+        return True
+    except Exception as e:
+        print(f"Decrypt file error: {str(e)}")
+        return False
+
+if __name__ == '__main__':
+    mes: bytes = bytes("A am the Message", "utf-8")
+    passw: str = "h3AC3TsU8TECvyCqd5Q5WUag5uXLjct2"
+    print(f"Original message: {mes}")
+
+    # Encrypt message
+    enc: bytes = encrypt_data(passw, mes)
+    print(f"Encrypted message: {enc}")
+
+    # Decrypt message
+    dec: bytes = decrypt_data(passw, enc)
+    print(f"Decrypted message: {dec}")
+
+```
+
+    Original message: b'A am the Message'
+    Encrypted message: b'R\x16\xf1\xb6\xbf\xf2^\x03\xfa`s\xa1\xb7W\xad\xc22rl\xdciu\x05"\x03\xcaxc\x84\x16\x80 \xb6W]\r0AK\x86\x1b@ V\x83\x9e\xca]'
+    Decrypted message: b'A am the Message'
     
 
 ## Exceptions
@@ -969,10 +1053,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 74' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000069?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 76' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
@@ -1216,7 +1300,8 @@ with PyCallGraph(output=GraphvizOutput()):
 
 ## Sources  
 [docs.python.org](https://docs.python.org/)  
-[Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
+[Comprehensive Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
+[Python Cheatsheet](https://github.com/wilfredinni/python-cheatsheet)  
 ["The Hitchhiker’s Guide to Python"](https://docs.python-guide.org/)  
 [Joel Grus, "Data Science from Scratch"](https://github.com/joelgrus/data-science-from-scratch)  
 ["Python 3 Patterns, Recipes and Idioms"](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/index.html)  
