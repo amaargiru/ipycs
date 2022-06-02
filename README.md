@@ -1,4 +1,6 @@
-## **Interactive Python Cheatsheet** *in Jupiter notebook format*
+## **Interactive Python Cheatsheet**<br>in Jupiter notebook format
+
+You can download [IPYCS Jupiter notebook](https://github.com/amaargiru/ipycs/blob/main/PYCS.ipynb) with code cells that allows you to edit and write new code, with full syntax highlighting. The results that are returned from this computation are then displayed in the notebook as the cell’s output.
 
 ## Data structures
 
@@ -774,8 +776,58 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-06-02 11:33:20.211656
-     2022-06-02 06:33:20.211656+00:00
+     2022-06-02 16:50:01.219652
+     2022-06-02 11:50:01.219652+00:00
+    
+
+### Encode
+
+Python uses the Unix Epoch: "1970-01-01 00:00 UTC"
+
+
+```python
+from datetime import datetime
+from dateutil.tz import tzlocal
+
+dt1: datetime = datetime.fromisoformat("2021-10-04 00:05:23.555+00:00")  # Raises ValueError
+dt2: datetime = datetime.strptime("21/10/04 17:30", "%d/%m/%y %H:%M")   # Datetime from str, according to format (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+dt3: datetime = datetime.fromordinal(100000)  # 100000th day after 1.1.0001
+dt4: datetime = datetime.fromtimestamp(20_000_000.01)  # Local datetime from seconds since the Epoch
+
+tz2: tzinfo = tzlocal()
+dt5: datetime = datetime.fromtimestamp(300_000_000, tz2)  # Aware datetime from seconds since the Epoch
+
+print (f"{dt1}\n {dt2}\n {dt3}\n {dt4}\n {dt5}")
+```
+
+    2021-10-04 00:05:23.555000+00:00
+     2004-10-21 17:30:00
+     0274-10-16 00:00:00
+     1970-08-20 16:33:20.010000
+     1979-07-05 10:20:00+05:00
+    
+
+### Decode
+
+
+```python
+from datetime import datetime
+
+dt1: datetime = datetime.today()
+
+s1: str = dt1.isoformat()
+s2: str = dt1.strftime("%d/%m/%y %H:%M")  # Outputting datetime object to string (format: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+i: int = dt1.toordinal()  # Days since Gregorian NYE 1, ignoring time and tz
+a: float = dt1.timestamp()  # Seconds since the Epoch
+
+print (f"{dt1}\n {s1}\n {s2}\n {i}\n {a}")
+```
+
+    2022-06-02 17:19:54.159390
+     2022-06-02T17:19:54.159390
+     02/06/22 17:19
+     738308
+     1654172394.15939
     
 
 ### Arithmetics
@@ -803,8 +855,8 @@ print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
     2022-06-07
-     2022-05-28 11:33:20.257323
-     14792 days, 11:33:20.257323
+     2022-05-28 17:19:54.227105
+     14792 days, 17:19:54.227105
      50 days, 0:00:00
      5.0
     
@@ -863,7 +915,7 @@ from Cryptodome.Cipher import AES
 from Cryptodome.Util.Padding import pad
 from Cryptodome.Util.Padding import unpad
 
-def encrypt_data(password: str, raw_data) -> bytes:
+def encrypt_data(password: str, raw_data: bytes) -> bytes:
     res = bytes()
     try:
         key = hashlib.sha256(password.encode()).digest()
@@ -876,7 +928,7 @@ def encrypt_data(password: str, raw_data) -> bytes:
         print(f"Encrypt error: {str(e)}")
     return res
 
-def decrypt_data(password: str, encrypted_data) -> bytes:
+def decrypt_data(password: str, encrypted_data: bytes) -> bytes:
     res = bytes()
     try:
         key = hashlib.sha256(password.encode()).digest()
@@ -931,7 +983,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'R\x16\xf1\xb6\xbf\xf2^\x03\xfa`s\xa1\xb7W\xad\xc22rl\xdciu\x05"\x03\xcaxc\x84\x16\x80 \xb6W]\r0AK\x86\x1b@ V\x83\x9e\xca]'
+    Encrypted message: b'-\x91\xbcC\x9a\xaa{\x1f\xffI\x7f\xab\xcd&\t\xfd\xdc^\xb9\xed\x92\x06B+\xf8\xdc^\xce3\x9b\xeb\x8a\x00\x0c\xb5\x85\xe6[*\xbeB\x1a\x9d\xd3\xa6\xbbi\r'
     Decrypted message: b'A am the Message'
     
 
@@ -1053,7 +1105,7 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 76' in <cell line: 4>()
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 80' in <cell line: 4>()
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=0'>1</a> class MyException(Exception):
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=1'>2</a>     pass
     ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=3'>4</a> raise MyException("My car is broken")
