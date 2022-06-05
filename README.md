@@ -583,6 +583,76 @@ print(c4, c5)
     ['Beware', 'the', 'Jabberwock, my son!\n The jaws that bite, the claws that catch!'] ['Beware the Jabberwock, my son!\n The jaws that bite, the claws', 'that', 'catch!']
     
 
+## Regex
+
+Argument flags=re.IGNORECASE can be used with all functions
+
+
+```python
+import re
+
+s1: str = "123 abc ABC 456"
+
+m1 = re.search("[aA]", s1)  # Searches for first occurrence of the pattern; search() return None if it can't find a match
+print(m1)
+print(m1.group(0))
+
+m2 = re.match("[aA]", s1)  # Searches at the beginning of the text; match() return None if it can't find a match
+print(m2)
+
+c1: list = re.findall("[aA]", s1)  # Returns all occurrences as strings
+print(c1)
+
+def replacer(s):  # replacer() can be a function that accepts a match object and returns a string
+    return chr(ord(s[0]) + 1)  # Next symbol in alphabet
+
+s2 = re.sub("\w", replacer, s1)  # Substitutes all occurrences with 'replacer'
+print(s2)
+
+c2 = re.split("\d", s1)
+print(c2)
+
+iter = re.finditer("\D", s1)  # Returns all occurrences as match objects
+
+for ch in iter:
+    print(ch.group(0), end= "")
+```
+
+    <re.Match object; span=(4, 5), match='a'>
+    a
+    None
+    ['a', 'A']
+    234 bcd BCD 567
+    ['', '', '', ' abc ABC ', '', '', '']
+     abc ABC 
+
+### Match Object
+
+
+```python
+import re
+
+m3 = re.match(r"(\w+) (\w+)", "John Connor, leader of the Resistance")
+
+s3: str = m3.group(0)  # Returns the whole match
+s4: str = m3.group(1)  # Returns part in the first bracket
+t1: tuple = m3.groups()  # Returns all bracketed parts
+start: int = m3.start()  # Returns start index of the match
+end: int = m3.end()  # Returns exclusive end index of the match
+t2: tuple[int, int] = m3.span()  # Return the 2-tuple (start, end)
+
+print (f"{s3}\n {s4}\n {t1}\n {start}\n {end}\n {t2}\n")
+```
+
+    John Connor
+     John
+     ('John', 'Connor')
+     0
+     11
+     (0, 11)
+    
+    
+
 ### JSON
 
 Human-readable text format to store and transmit data objects.
@@ -746,10 +816,10 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 
 ```
 
-    2022-06-02
-     2022-06-02 11:33:20.164132
-     2022-06-02 06:33:20.164131
-     2022-06-01 23:33:20.164131-07:00
+    2022-06-05
+     2022-06-05 18:21:30.733274
+     2022-06-05 13:21:30.733273
+     2022-06-05 06:21:30.733273-07:00
     
 
 ### Timezone
@@ -776,8 +846,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-06-02 16:50:01.219652
-     2022-06-02 11:50:01.219652+00:00
+     2022-06-05 18:21:30.790123
+     2022-06-05 13:21:30.790123+00:00
     
 
 ### Encode
@@ -823,11 +893,11 @@ a: float = dt1.timestamp()  # Seconds since the Epoch
 print (f"{dt1}\n {s1}\n {s2}\n {i}\n {a}")
 ```
 
-    2022-06-02 17:19:54.159390
-     2022-06-02T17:19:54.159390
-     02/06/22 17:19
-     738308
-     1654172394.15939
+    2022-06-05 18:21:30.931110
+     2022-06-05T18:21:30.931110
+     05/06/22 18:21
+     738311
+     1654435290.93111
     
 
 ### Arithmetics
@@ -854,9 +924,9 @@ c: float = td1/td2  # timedelta/timedelta
 print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
-    2022-06-07
-     2022-05-28 17:19:54.227105
-     14792 days, 17:19:54.227105
+    2022-06-10
+     2022-05-31 18:21:30.979967
+     14795 days, 18:21:30.979967
      50 days, 0:00:00
      5.0
     
@@ -983,7 +1053,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'-\x91\xbcC\x9a\xaa{\x1f\xffI\x7f\xab\xcd&\t\xfd\xdc^\xb9\xed\x92\x06B+\xf8\xdc^\xce3\x9b\xeb\x8a\x00\x0c\xb5\x85\xe6[*\xbeB\x1a\x9d\xd3\xa6\xbbi\r'
+    Encrypted message: b'\x9f\x8a\x8f6\x04*\xb7^y\x16\x98\x82\xa3X]\xed*\x8c\x87\xf3K\x9a\xff\x9b\xa0Q#\xa8\xb8\xe0\xd4\xcc\xa6!\x13\xad\x89\xadS-\x11\xb7\xfa\xec\xc5\x02\xf4\x16'
     Decrypted message: b'A am the Message'
     
 
@@ -1105,10 +1175,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 80' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000073?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 84' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000079?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000079?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000079?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
@@ -1252,13 +1322,13 @@ print(f"List after shuffle: {a}")
 
 ```
 
-    Single float random: 0.04630418772344136
+    Single float random: 0.9024807633898538
     Single int random: 7
-    Random bytes: b'\x10\x95&\x96\xdc\xc7D%\xeeJ'
+    Random bytes: b'>\xe0^\x16PX\xf8E\xf8\x98'
     Random choice: Bob
-    Random list without duplicates: [8, 3, 5, 9, 7]
+    Random list without duplicates: [5, 10, 3, 6, 1]
     List before shuffle: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    List after shuffle: [8, 3, 10, 9, 2, 6, 4, 7, 1, 5]
+    List after shuffle: [10, 4, 6, 5, 1, 8, 3, 9, 7, 2]
     
 
 ## Profiling
@@ -1278,7 +1348,7 @@ duration = time() - start_time
 print(f"{duration} seconds")
 ```
 
-    2.3784937858581543 seconds
+    2.2923033237457275 seconds
     
 
 ### High performance
@@ -1296,7 +1366,7 @@ duration = perf_counter() - start_time
 print(f"{duration} seconds")
 ```
 
-    2.226437000092119 seconds
+    2.3540456001646817 seconds
     
 
 ### timeit
@@ -1318,7 +1388,7 @@ timeit("long_pow()", number=10, globals=globals(), setup='pass')
 
 
 
-    1.8339518001303077
+    1.8552540000528097
 
 
 
