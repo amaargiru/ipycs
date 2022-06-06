@@ -998,6 +998,51 @@ with open("f.txt", "w", encoding="utf-8") as f:
     # f.flush() for flushes write buffer; runs every 4096/8192 B
 ```
 
+## Paths
+
+
+```python
+from os import getcwd, path, listdir, scandir, stat
+from pathlib import Path
+
+s1:str = getcwd()  # Returns the current working directory
+print(s1)
+
+s2:str = path.abspath("f.txt")  # Returns absolute path
+print(s2)
+
+s3: str = path.basename(s2)  # Returns final component of the path
+s4: str = path.dirname(s2)  # Returns path without the final component
+t1: tuple = path.splitext(s2)  # Splits on last period of the final component
+print(s3, s4, t1)
+
+p = Path(s2)
+st = p.stat()
+print(st)
+
+b1: bool = p.exists()
+b2: bool = p.is_file()
+b3: bool = p.is_dir()
+print(b1, b2, b3)
+
+c: list = listdir(path=s1)  # Returns filenames located at path
+print(c)
+
+s5: str = p.stem  # Returns final component without extension
+s6: str  = p.suffix  # Returns final component's extension
+t2: tuple = p.parts  # Returns all components as strings
+print(s5, s6, t2)
+```
+
+    c:\Works\amaargiru\ipycs
+    c:\Works\amaargiru\ipycs\f.txt
+    f.txt c:\Works\amaargiru\ipycs ('c:\\Works\\amaargiru\\ipycs\\f', '.txt')
+    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1654514538, st_mtime=1654514457, st_ctime=1654437943)
+    True True False
+    ['.git', '.gitignore', 'convert_nb_to_md.bat', 'f.txt', 'LICENSE', 'pycallgraph3.png', 'PYCS.ipynb', 'README.md']
+    f .txt ('c:\\', 'Works', 'amaargiru', 'ipycs', 'f.txt')
+    
+
 ## Data querying
 
 ### Sum, Count, Min, Max
@@ -1120,7 +1165,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'\x7f"\xd9\xf7X-\xcb\x02+\xcc$7\xe0\x85{\x8c\xa8 7\xf0\xed\'7P]\xc2=\xe7\xab\xae\x04\xf6\x15\xbf\xcd<?e;W\xba\xa6*<\x97\xfa[\xdd'
+    Encrypted message: b"\xb3\x0f\xce~LX\x83\t=\xa7\xc3\xd3\xdc\x91\xe6\xb3\xce$i\x1dr\x19\xd6\xeb\xc3\xcc\xf9yLQ\xb2=\xd3|\x147\xc0\x1d\xa9\x92\xbb\xe7\x86R\xe07'\x8d"
     Decrypted message: b'A am the Message'
     
 
@@ -1242,7 +1287,7 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 90' in <cell line: 4>()
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 92' in <cell line: 4>()
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=0'>1</a> class MyException(Exception):
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=1'>2</a>     pass
     ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=3'>4</a> raise MyException("My car is broken")
