@@ -931,6 +931,73 @@ print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
      5.0
     
 
+## File
+
+### Open
+
+Open the file and return a corresponding file object.
+
+
+```python
+f = open("f.txt", mode='r', encoding="utf-8", newline=None)
+
+print(f.read())
+```
+
+    Hello from file!
+    
+
+
+*encoding=None* means that the default encoding is used, which is platform dependent. Best practice is to use *encoding="utf-8"* whenever possible.  
+*newline=None* means all different end of line combinations are converted to '\n' on read, while on write all '\n' characters are converted to system's default line separator.  
+*newline=""* means no conversions take place, but input is still broken into chunks by readline() and readlines() on every "\n", "\r" and "\r\n".  
+
+### Modes
+
+"r" - Read (default)  
+"w" - Write (truncate)  
+"x" - Write or fail if the file already exists  
+"a" - Append  
+"w+" - Read and write (truncate)  
+"r+" - Read and write from the start  
+"a+" - Read and write from the end  
+"t" - Text mode (default)  
+"b" - Binary mode (`'br'`, `'bw'`, `'bx'`, …)  
+
+### Exceptions
+
+*FileNotFoundError* can be raised when reading with "r" or "r+".  
+*FileExistsError* can be raised when writing with "x".  
+*IsADirectoryError* and *PermissionError* can be raised by any.  
+*OSError* is the parent class of all listed exceptions.  
+
+### Read from file
+
+
+```python
+with open("f.txt", encoding="utf-8") as f:
+    chars = f.read(5)  # Reads chars/bytes or until EOF
+    print(chars)
+
+    f.seek(0)  # Moves to the start of the file. Also seek(offset) and seek(±offset, anchor), where anchor is 0 for start, 1 for current position and 2 for end
+
+    lines: list[str] = f.readlines()  # Also readline()
+    print(lines)
+```
+
+    Hello
+    ['Hello from file!']
+    
+
+### Write to file
+
+
+```python
+with open("f.txt", "w", encoding="utf-8") as f:
+    f.write("Hello from file!")  # Also f.writelines(<collection>)
+    # f.flush() for flushes write buffer; runs every 4096/8192 B
+```
+
 ## Data querying
 
 ### Sum, Count, Min, Max
@@ -1053,7 +1120,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'\x9f\x8a\x8f6\x04*\xb7^y\x16\x98\x82\xa3X]\xed*\x8c\x87\xf3K\x9a\xff\x9b\xa0Q#\xa8\xb8\xe0\xd4\xcc\xa6!\x13\xad\x89\xadS-\x11\xb7\xfa\xec\xc5\x02\xf4\x16'
+    Encrypted message: b'\x7f"\xd9\xf7X-\xcb\x02+\xcc$7\xe0\x85{\x8c\xa8 7\xf0\xed\'7P]\xc2=\xe7\xab\xae\x04\xf6\x15\xbf\xcd<?e;W\xba\xa6*<\x97\xfa[\xdd'
     Decrypted message: b'A am the Message'
     
 
@@ -1175,10 +1242,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 84' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000079?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000079?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000079?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 90' in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
