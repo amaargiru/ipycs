@@ -1533,11 +1533,12 @@ with PyCallGraph(output=GraphvizOutput()):
 <img src="pycallgraph3.png" style="height:400px">
 
 ## Sources  
-[docs.python.org](https://docs.python.org/)  
-[Comprehensive Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
-[Python Cheatsheet](https://github.com/wilfredinni/python-cheatsheet)  
-["The Hitchhiker’s Guide to Python"](https://docs.python-guide.org/)  
-[Joel Grus, "Data Science from Scratch"](https://github.com/joelgrus/data-science-from-scratch)  
-["Python 3 Patterns, Recipes and Idioms"](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/index.html)  
-["Python Notes for Professionals"](https://goalkicker.com/PythonBook/)  
-[Mark Lutz, "Learning Python"](https://drive.google.com/file/d/0B2Y-n6IlHYliSXZxMk0xT0NSY1E/preview)  
+Official documentation for Python: [docs.python.org](https://docs.python.org/)  
+A very thorough Python cheat sheet without basic syntax: [Comprehensive Python Cheatsheet](https://github.com/gto76/python-cheatsheet)  
+Python cheat sheet with basic syntax like flow control: [Python Cheatsheet](https://github.com/wilfredinni/python-cheatsheet). Contains Jupiter [Notebooks](https://github.com/wilfredinni/python-cheatsheet/tree/master/jupyter_notebooks).  
+List of awesome Python frameworks, libraries and resources: [Awesome Python](https://github.com/vinta/awesome-python).  
+Python best practices guidebook: ["The Hitchhiker’s Guide to Python"](https://github.com/realpython/python-guide)  
+Code examples of data science libraries, frameworks and toolkits: [Joel Grus, "Data Science from Scratch"](https://github.com/joelgrus/data-science-from-scratch)  
+For more experienced Python programmers: ["Python 3 Patterns, Recipes and Idioms"](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/index.html)  
+For beginners and intermediate level Python programmers: ["Python Notes for Professionals"](https://goalkicker.com/PythonBook/)  
+In-depth introduction to the Python language: [Mark Lutz, "Learning Python"](https://drive.google.com/file/d/0B2Y-n6IlHYliSXZxMk0xT0NSY1E/preview)  
