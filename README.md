@@ -43,7 +43,7 @@ print(list_of_words)
 i: int = list_of_chars.index("w")  # Returns index of the first occurrence or raises ValueError
 print(i)
 list_of_chars.remove("w")  # Removes first occurrence of the item or raises ValueError
-e = list_of_chars.pop(9)  # Removes and returns item at index or from the end.
+e = list_of_chars.pop(9)  # Removes and returns item at index or from the end. pop() removes and returns the last value from the list
 print(list_of_chars, e)
 a.clear()  # Removes all items
 ```
@@ -187,11 +187,11 @@ big_cities.pop()  # Remove and return a random item from the set or raises KeyEr
 big_cities.clear()  # Removes all items from the set
 ```
 
-    {'New-York', 'Ottawa', 'Sydney', 'Los Angeles'} {'New-York', 'Chicago', 'Seattle', 'Salt Lake City', 'Los Angeles'}
-    {'Chicago', 'Salt Lake City', 'New-York', 'Ottawa', 'Seattle', 'Los Angeles', 'Sydney'}
-    {'New-York', 'Los Angeles'}
+    {'Los Angeles', 'Ottawa', 'New-York', 'Sydney'} {'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago', 'New-York'}
+    {'Salt Lake City', 'Los Angeles', 'Chicago', 'Ottawa', 'Sydney', 'New-York', 'Seattle'}
+    {'Los Angeles', 'New-York'}
     {'Ottawa', 'Sydney'}
-    {'Ottawa', 'Chicago', 'Seattle', 'Salt Lake City', 'Sydney'}
+    {'Salt Lake City', 'Seattle', 'Chicago', 'Ottawa', 'Sydney'}
     True False
     
 
@@ -285,7 +285,7 @@ print(list_of_members, "\n",
     [<Currency.euro: 1>, <Currency.us_dollar: 2>, <Currency.yuan: 3>] 
      ['euro', 'us_dollar', 'yuan'] 
      [1, 2, 3] 
-     Currency.us_dollar
+     Currency.yuan
     
 
 ### Range
@@ -343,7 +343,7 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 5, 26, 17, 56, 14, 318575))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 16, 16, 26, 39, 26941))
     
 
 Objects can be made immutable with *frozen=True*.
@@ -476,13 +476,16 @@ print(f"is_contains = {is_contains}, is_startswith = {is_startswith}, is_endswit
 sr: str  = sj.replace("rabbit", "sheep")  # Replaces substrings. Also you can use times:  sr: str  = sj.replace("rabbit", "sheep", times)
 print(f"After replace: {sr}")
 
-i1 = sr.find("rabbit")  # Returns start index of the first match or -1
-i2 = sr.index("sheep")  #  Returns start index of the first match or raises ValueError
+i1 = sr.find("rabbit")  # Returns start index of the first match or -1. Also rfind()
+i2 = sr.index("sheep")  #  Returns start index of the first match or raises ValueError. Also rindex()   
 print(f"Start index of 'rabbit' is {i1}, start index of 'sheep' is {i2}")
 
 d = str.maketrans({"a" : "x", "b" : "y", "c" : "z"})
 st  = "abc".translate(d)
 print(f"Translate string: {st}")
+
+sr = sj[::-1]  # Reverse (Explanation: stackoverflow.com/questions/931092/reverse-a-string-in-python)
+print(f"Reverse string: {sr}")
 ```
 
     Joined string: Follow the white rabbit
@@ -490,6 +493,7 @@ print(f"Translate string: {st}")
     After replace: Follow the white sheep
     Start index of 'rabbit' is -1, start index of 'sheep' is 17
     Translate string: xyz
+    Reverse string: tibbar etihw eht wolloF
     
 
 ### lower(), upper(), capitalize() and title()
@@ -816,10 +820,10 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 
 ```
 
-    2022-06-05
-     2022-06-05 18:21:30.733274
-     2022-06-05 13:21:30.733273
-     2022-06-05 06:21:30.733273-07:00
+    2022-07-16
+     2022-07-16 16:26:39.957174
+     2022-07-16 11:26:39.957174
+     2022-07-16 04:26:40.035571-07:00
     
 
 ### Timezone
@@ -846,8 +850,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-06-05 18:21:30.790123
-     2022-06-05 13:21:30.790123+00:00
+     2022-07-16 16:26:40.216882
+     2022-07-16 11:26:40.216882+00:00
     
 
 ### Encode
@@ -893,11 +897,11 @@ a: float = dt1.timestamp()  # Seconds since the Epoch
 print (f"{dt1}\n {s1}\n {s2}\n {i}\n {a}")
 ```
 
-    2022-06-05 18:21:30.931110
-     2022-06-05T18:21:30.931110
-     05/06/22 18:21
-     738311
-     1654435290.93111
+    2022-07-16 16:26:40.317582
+     2022-07-16T16:26:40.317582
+     16/07/22 16:26
+     738352
+     1657970800.317582
     
 
 ### Arithmetics
@@ -924,9 +928,9 @@ c: float = td1/td2  # timedelta/timedelta
 print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
-    2022-06-10
-     2022-05-31 18:21:30.979967
-     14795 days, 18:21:30.979967
+    2022-07-21
+     2022-07-11 16:26:40.373212
+     14836 days, 16:26:40.373212
      50 days, 0:00:00
      5.0
     
@@ -1002,13 +1006,13 @@ with open("f.txt", "w", encoding="utf-8") as f:
 
 
 ```python
-from os import getcwd, path, listdir, scandir, stat
+from os import getcwd, path, listdir
 from pathlib import Path
 
-s1:str = getcwd()  # Returns the current working directory
+s1: str = getcwd()  # Returns the current working directory
 print(s1)
 
-s2:str = path.abspath("f.txt")  # Returns absolute path
+s2: str = path.abspath("f.txt")  # Returns absolute path
 print(s2)
 
 s3: str = path.basename(s2)  # Returns final component of the path
@@ -1037,9 +1041,9 @@ print(s5, s6, t2)
     c:\Works\amaargiru\ipycs
     c:\Works\amaargiru\ipycs\f.txt
     f.txt c:\Works\amaargiru\ipycs ('c:\\Works\\amaargiru\\ipycs\\f', '.txt')
-    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1654514538, st_mtime=1654514457, st_ctime=1654437943)
+    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1657970800, st_mtime=1657970800, st_ctime=1654437943)
     True True False
-    ['.git', '.gitignore', 'convert_nb_to_md.bat', 'f.txt', 'LICENSE', 'pycallgraph3.png', 'PYCS.ipynb', 'README.md']
+    ['.git', '.gitignore', '1.bin', '1.json', 'convert_nb_to_md.bat', 'f.txt', 'LICENSE', 'pycallgraph3.png', 'PYCS.ipynb', 'README.md']
     f .txt ('c:\\', 'Works', 'amaargiru', 'ipycs', 'f.txt')
     
 
@@ -1165,7 +1169,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b"\xb3\x0f\xce~LX\x83\t=\xa7\xc3\xd3\xdc\x91\xe6\xb3\xce$i\x1dr\x19\xd6\xeb\xc3\xcc\xf9yLQ\xb2=\xd3|\x147\xc0\x1d\xa9\x92\xbb\xe7\x86R\xe07'\x8d"
+    Encrypted message: b'\\\xca\xa2\x86\xff\xde\x1d\x1a\x12S\xa94p\xee\x10t3i:n2\xe4\x89\xac\xd3\x7f\xd1\xf48\x83fE\x99\xf8_ZV\xa6\x93\\!\x87+\x18\xcc\x13d\x9e'
     Decrypted message: b'A am the Message'
     
 
@@ -1287,10 +1291,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Cell 92' in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000089?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 92 in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
