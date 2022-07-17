@@ -146,10 +146,21 @@ print(c)
 
 c["blue"] += 1
 print(f"After shopping: {c}")
+
+# We can explain how Counter() works with defaultdict():
+from collections import defaultdict
+
+d = defaultdict(int)
+for shirt in shirts_colors:
+    d[shirt] += 1
+d["blue"] += 1
+
+print(d)
 ```
 
     Counter({'white': 3, 'black': 2, 'red': 1, 'blue': 1})
     After shopping: Counter({'white': 3, 'blue': 2, 'black': 2, 'red': 1})
+    defaultdict(<class 'int'>, {'red': 1, 'white': 3, 'blue': 2, 'black': 2})
     
 
 ### Set
@@ -187,11 +198,11 @@ big_cities.pop()  # Remove and return a random item from the set or raises KeyEr
 big_cities.clear()  # Removes all items from the set
 ```
 
-    {'Los Angeles', 'Ottawa', 'New-York', 'Sydney'} {'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago', 'New-York'}
-    {'Salt Lake City', 'Los Angeles', 'Chicago', 'Ottawa', 'Sydney', 'New-York', 'Seattle'}
-    {'Los Angeles', 'New-York'}
-    {'Ottawa', 'Sydney'}
-    {'Salt Lake City', 'Seattle', 'Chicago', 'Ottawa', 'Sydney'}
+    {'Ottawa', 'New-York', 'Sydney', 'Los Angeles'} {'Seattle', 'Salt Lake City', 'New-York', 'Chicago', 'Los Angeles'}
+    {'Seattle', 'Chicago', 'Ottawa', 'Los Angeles', 'Salt Lake City', 'New-York', 'Sydney'}
+    {'New-York', 'Los Angeles'}
+    {'Sydney', 'Ottawa'}
+    {'Seattle', 'Ottawa', 'Salt Lake City', 'Sydney', 'Chicago'}
     True False
     
 
@@ -343,7 +354,7 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 16, 16, 26, 39, 26941))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 17, 16, 49, 9, 908766))
     
 
 Objects can be made immutable with *frozen=True*.
@@ -587,6 +598,36 @@ print(c4, c5)
     ['Beware', 'the', 'Jabberwock, my son!\n The jaws that bite, the claws that catch!'] ['Beware the Jabberwock, my son!\n The jaws that bite, the claws', 'that', 'catch!']
     
 
+### ord(), chr()
+
+
+```python
+s1: str = "abcABC!"
+
+for ch in s1:
+    print(f"{ch} -> {ord(ch)}")  # Returns an integer representing the Unicode character
+
+nums = [72, 101, 108, 108, 111, 33]
+
+for num in nums:
+    print(f"{num} -> {chr(num)}")
+```
+
+    a -> 97
+    b -> 98
+    c -> 99
+    A -> 65
+    B -> 66
+    C -> 67
+    ! -> 33
+    72 -> H
+    101 -> e
+    108 -> l
+    108 -> l
+    111 -> o
+    33 -> !
+    
+
 ## Regex
 
 Argument flags=re.IGNORECASE can be used with all functions
@@ -820,10 +861,10 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 
 ```
 
-    2022-07-16
-     2022-07-16 16:26:39.957174
-     2022-07-16 11:26:39.957174
-     2022-07-16 04:26:40.035571-07:00
+    2022-07-17
+     2022-07-17 16:58:25.318954
+     2022-07-17 11:58:25.319952
+     2022-07-17 04:58:25.319952-07:00
     
 
 ### Timezone
@@ -850,8 +891,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-07-16 16:26:40.216882
-     2022-07-16 11:26:40.216882+00:00
+     2022-07-17 16:58:25.372161
+     2022-07-17 11:58:25.372161+00:00
     
 
 ### Encode
@@ -897,11 +938,11 @@ a: float = dt1.timestamp()  # Seconds since the Epoch
 print (f"{dt1}\n {s1}\n {s2}\n {i}\n {a}")
 ```
 
-    2022-07-16 16:26:40.317582
-     2022-07-16T16:26:40.317582
-     16/07/22 16:26
-     738352
-     1657970800.317582
+    2022-07-17 16:58:25.477779
+     2022-07-17T16:58:25.477779
+     17/07/22 16:58
+     738353
+     1658059105.477779
     
 
 ### Arithmetics
@@ -928,9 +969,9 @@ c: float = td1/td2  # timedelta/timedelta
 print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
-    2022-07-21
-     2022-07-11 16:26:40.373212
-     14836 days, 16:26:40.373212
+    2022-07-22
+     2022-07-12 16:58:25.530670
+     14837 days, 16:58:25.530670
      50 days, 0:00:00
      5.0
     
@@ -1041,7 +1082,7 @@ print(s5, s6, t2)
     c:\Works\amaargiru\ipycs
     c:\Works\amaargiru\ipycs\f.txt
     f.txt c:\Works\amaargiru\ipycs ('c:\\Works\\amaargiru\\ipycs\\f', '.txt')
-    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1657970800, st_mtime=1657970800, st_ctime=1654437943)
+    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1658059105, st_mtime=1658059105, st_ctime=1654437943)
     True True False
     ['.git', '.gitignore', '1.bin', '1.json', 'convert_nb_to_md.bat', 'f.txt', 'LICENSE', 'pycallgraph3.png', 'PYCS.ipynb', 'README.md']
     f .txt ('c:\\', 'Works', 'amaargiru', 'ipycs', 'f.txt')
@@ -1169,7 +1210,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'\\\xca\xa2\x86\xff\xde\x1d\x1a\x12S\xa94p\xee\x10t3i:n2\xe4\x89\xac\xd3\x7f\xd1\xf48\x83fE\x99\xf8_ZV\xa6\x93\\!\x87+\x18\xcc\x13d\x9e'
+    Encrypted message: b" \xa7H\xe4\x98\x1f0,'E\x8e&\xd43Q&\x14\xe6L\x8cRK\x98q\x9b\xd6\x01\xbd\xb4\n\xea\xe9\xedu\xea\xc2y\x9b\xbb@U\xe6b\x9c?\x02\xa8N"
     Decrypted message: b'A am the Message'
     
 
@@ -1291,7 +1332,7 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 92 in <cell line: 4>()
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 94 in <cell line: 4>()
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=0'>1</a> class MyException(Exception):
           <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=1'>2</a>     pass
     ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=3'>4</a> raise MyException("My car is broken")
