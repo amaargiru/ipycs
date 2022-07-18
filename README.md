@@ -29,11 +29,6 @@ b = sorted(a)  # Returns a new sorted list
 a.sort()  # Modifies the list in-place and has no return value
 print(f"Sort: {a}, {b}")
 
-print(bisect.bisect(a, 20))  # Locate the insertion point for value in a list to maintain sorted order
-
-bisect.insort(a, 12)  # Insert value in a list in sorted order
-print(a)
-
 s: str = "A whole string"
 list_of_chars: list = list(s)
 print(list_of_chars)
@@ -52,8 +47,6 @@ a.clear()  # Removes all items
     Add: [10, 20, 50, 30, 40, 60]
     Reverse: [60, 40, 30, 50, 20, 10], [60, 40, 30, 50, 20, 10]
     Sort: [10, 20, 30, 40, 50, 60], [10, 20, 30, 40, 50, 60]
-    2
-    [10, 12, 20, 30, 40, 50, 60]
     ['A', ' ', 'w', 'h', 'o', 'l', 'e', ' ', 's', 't', 'r', 'i', 'n', 'g']
     ['A', 'whole', 'string']
     2
@@ -198,11 +191,11 @@ big_cities.pop()  # Remove and return a random item from the set or raises KeyEr
 big_cities.clear()  # Removes all items from the set
 ```
 
-    {'Ottawa', 'New-York', 'Sydney', 'Los Angeles'} {'Seattle', 'Salt Lake City', 'New-York', 'Chicago', 'Los Angeles'}
-    {'Seattle', 'Chicago', 'Ottawa', 'Los Angeles', 'Salt Lake City', 'New-York', 'Sydney'}
-    {'New-York', 'Los Angeles'}
+    {'Los Angeles', 'Sydney', 'New-York', 'Ottawa'} {'Salt Lake City', 'Los Angeles', 'Seattle', 'New-York', 'Chicago'}
+    {'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago', 'Sydney', 'New-York', 'Ottawa'}
+    {'Los Angeles', 'New-York'}
     {'Sydney', 'Ottawa'}
-    {'Seattle', 'Ottawa', 'Salt Lake City', 'Sydney', 'Chicago'}
+    {'Salt Lake City', 'Seattle', 'Ottawa', 'Chicago', 'Sydney'}
     True False
     
 
@@ -296,7 +289,7 @@ print(list_of_members, "\n",
     [<Currency.euro: 1>, <Currency.us_dollar: 2>, <Currency.yuan: 3>] 
      ['euro', 'us_dollar', 'yuan'] 
      [1, 2, 3] 
-     Currency.yuan
+     Currency.euro
     
 
 ### Range
@@ -354,7 +347,7 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 17, 16, 49, 9, 908766))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 18, 14, 44, 58, 339268))
     
 
 Objects can be made immutable with *frozen=True*.
@@ -861,10 +854,10 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 
 ```
 
-    2022-07-17
-     2022-07-17 16:58:25.318954
-     2022-07-17 11:58:25.319952
-     2022-07-17 04:58:25.319952-07:00
+    2022-07-18
+     2022-07-18 14:44:59.513429
+     2022-07-18 09:44:59.513429
+     2022-07-18 02:44:59.572967-07:00
     
 
 ### Timezone
@@ -891,8 +884,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-07-17 16:58:25.372161
-     2022-07-17 11:58:25.372161+00:00
+     2022-07-18 14:44:59.721324
+     2022-07-18 09:44:59.721324+00:00
     
 
 ### Encode
@@ -938,11 +931,11 @@ a: float = dt1.timestamp()  # Seconds since the Epoch
 print (f"{dt1}\n {s1}\n {s2}\n {i}\n {a}")
 ```
 
-    2022-07-17 16:58:25.477779
-     2022-07-17T16:58:25.477779
-     17/07/22 16:58
-     738353
-     1658059105.477779
+    2022-07-18 14:44:59.817951
+     2022-07-18T14:44:59.817951
+     18/07/22 14:44
+     738354
+     1658137499.817951
     
 
 ### Arithmetics
@@ -969,9 +962,9 @@ c: float = td1/td2  # timedelta/timedelta
 print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
-    2022-07-22
-     2022-07-12 16:58:25.530670
-     14837 days, 16:58:25.530670
+    2022-07-23
+     2022-07-13 14:44:59.875538
+     14838 days, 14:44:59.875538
      50 days, 0:00:00
      5.0
     
@@ -1082,7 +1075,7 @@ print(s5, s6, t2)
     c:\Works\amaargiru\ipycs
     c:\Works\amaargiru\ipycs\f.txt
     f.txt c:\Works\amaargiru\ipycs ('c:\\Works\\amaargiru\\ipycs\\f', '.txt')
-    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1658059105, st_mtime=1658059105, st_ctime=1654437943)
+    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1658137500, st_mtime=1658137500, st_ctime=1654437943)
     True True False
     ['.git', '.gitignore', '1.bin', '1.json', 'convert_nb_to_md.bat', 'f.txt', 'LICENSE', 'pycallgraph3.png', 'PYCS.ipynb', 'README.md']
     f .txt ('c:\\', 'Works', 'amaargiru', 'ipycs', 'f.txt')
@@ -1113,6 +1106,40 @@ print(mx)
     3
     1
     5
+    
+
+### bisect and binary search
+
+
+```python
+a: list[int] = [12, 6, 8, 19, 1, 33]
+
+a.sort()
+print(f"Sorted: {a}")
+
+print(bisect.bisect(a, 19))  # Locate the insertion point for value in a list to maintain sorted order
+
+bisect.insort(a, 15)  # Insert value in a list in sorted order
+print(a)
+
+# Binary search
+
+from bisect import bisect_left
+
+def binary_search(a, x, lo=0, hi=None):
+    if hi is None:
+        hi = len(a)
+
+    pos = bisect_left(a, x, lo, hi)
+    return pos if pos != hi and a[pos] == x else -1
+
+print(binary_search(a, 15))
+```
+
+    Sorted: [1, 6, 8, 12, 19, 33]
+    5
+    [1, 6, 8, 12, 15, 19, 33]
+    4
     
 
 ### Pairwise
@@ -1210,7 +1237,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b" \xa7H\xe4\x98\x1f0,'E\x8e&\xd43Q&\x14\xe6L\x8cRK\x98q\x9b\xd6\x01\xbd\xb4\n\xea\xe9\xedu\xea\xc2y\x9b\xbb@U\xe6b\x9c?\x02\xa8N"
+    Encrypted message: b',\xed7P\xab\x9eg\x9ds\xc1\x0f\xc1\xc2\x9f\xb6\x93f\x90\x99\tP\xd8\x1c)\x9d\xc1H\x883\xc6I|l\xab\xfb\xd3D\xaf\t\xf9_\xee\x16@\x94\xe99Y'
     Decrypted message: b'A am the Message'
     
 
@@ -1332,10 +1359,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 94 in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000091?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 96 in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000093?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000093?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000093?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
