@@ -1123,10 +1123,16 @@ upper_fruits = [fruit.upper() for fruit in fruits]
 #                     ☝ expression
 print(upper_fruits)
 
+# Split a list into equal sized chunks
+chunk_len = 2
+chunk_fruits = [fruits[i:i + chunk_len] for i in range(0, len(fruits), chunk_len)]
+print(chunk_fruits)
+
 ```
 
     ['Lemon', 'Apple', 'Watermelon', 'Pear']
     ['LEMON', 'APPLE', 'BANANA', 'KIWI', 'WATERMELON', 'PEAR']
+    [['Lemon', 'Apple'], ['Banana', 'Kiwi'], ['Watermelon', 'Pear']]
     
 
 ### bisect and binary search
@@ -1260,7 +1266,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'\xce\\\xd3~\xed\x0e?j\xfc\x14\x94U\xf5\xfd\xf9\x7f\xffgK\x9eu\xa6\xa8\xef:\x126\xa73r\x17\x88\x02\xe6\xea*k\xdb\x83\xfc\x8f\rX\x95#}Rt'
+    Encrypted message: b'\x171F\xc3\r\x03i\xd0\x97\x81u\x020-\xed\x9c\xefx\xab\xec\xda\xe1\xaf\xe7\xd2\x104\x94\x1f\xbc\xe5(yf#Q\x97\x1e\xd0\xcb;\xd49\xbd\xd4\x1bM\xee'
     Decrypted message: b'A am the Message'
     
 
