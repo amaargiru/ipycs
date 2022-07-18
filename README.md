@@ -8,8 +8,6 @@ You can download [IPYCS Jupiter notebook](https://github.com/amaargiru/ipycs/blo
 
 
 ```python
-import bisect
-
 a = []  # Empty list
 
 a: list[int] = [10, 20]
@@ -191,11 +189,11 @@ big_cities.pop()  # Remove and return a random item from the set or raises KeyEr
 big_cities.clear()  # Removes all items from the set
 ```
 
-    {'Los Angeles', 'Sydney', 'New-York', 'Ottawa'} {'Salt Lake City', 'Los Angeles', 'Seattle', 'New-York', 'Chicago'}
-    {'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago', 'Sydney', 'New-York', 'Ottawa'}
+    {'Ottawa', 'Los Angeles', 'Sydney', 'New-York'} {'New-York', 'Salt Lake City', 'Los Angeles', 'Seattle', 'Chicago'}
+    {'Salt Lake City', 'New-York', 'Chicago', 'Sydney', 'Ottawa', 'Los Angeles', 'Seattle'}
     {'Los Angeles', 'New-York'}
-    {'Sydney', 'Ottawa'}
-    {'Salt Lake City', 'Seattle', 'Ottawa', 'Chicago', 'Sydney'}
+    {'Ottawa', 'Sydney'}
+    {'Sydney', 'Salt Lake City', 'Ottawa', 'Seattle', 'Chicago'}
     True False
     
 
@@ -289,7 +287,7 @@ print(list_of_members, "\n",
     [<Currency.euro: 1>, <Currency.us_dollar: 2>, <Currency.yuan: 3>] 
      ['euro', 'us_dollar', 'yuan'] 
      [1, 2, 3] 
-     Currency.euro
+     Currency.us_dollar
     
 
 ### Range
@@ -347,7 +345,7 @@ print(t2)
 ```
 
     Transaction(value=1000000, issuer='Deutsche Bank', dt=datetime.datetime(2022, 1, 1, 12, 0))
-    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 18, 14, 44, 58, 339268))
+    Transaction(value=1000, issuer='Default Bank', dt=datetime.datetime(2022, 7, 18, 15, 12, 0, 119907))
     
 
 Objects can be made immutable with *frozen=True*.
@@ -855,9 +853,9 @@ print (f"{d}\n {dt1}\n {dt2}\n {dt3}")
 ```
 
     2022-07-18
-     2022-07-18 14:44:59.513429
-     2022-07-18 09:44:59.513429
-     2022-07-18 02:44:59.572967-07:00
+     2022-07-18 15:12:01.398441
+     2022-07-18 10:12:01.398441
+     2022-07-18 03:12:01.513608-07:00
     
 
 ### Timezone
@@ -884,8 +882,8 @@ print (f"{tz1}\n {tz2}\n {tz3}\n {tz4}\n {local_dt}\n {utc_dt}")
      tzlocal()
      tzlocal()
      tzfile('US/Central')
-     2022-07-18 14:44:59.721324
-     2022-07-18 09:44:59.721324+00:00
+     2022-07-18 15:12:01.677577
+     2022-07-18 10:12:01.677577+00:00
     
 
 ### Encode
@@ -931,11 +929,11 @@ a: float = dt1.timestamp()  # Seconds since the Epoch
 print (f"{dt1}\n {s1}\n {s2}\n {i}\n {a}")
 ```
 
-    2022-07-18 14:44:59.817951
-     2022-07-18T14:44:59.817951
-     18/07/22 14:44
+    2022-07-18 15:12:01.783993
+     2022-07-18T15:12:01.783993
+     18/07/22 15:12
      738354
-     1658137499.817951
+     1658139121.783993
     
 
 ### Arithmetics
@@ -963,8 +961,8 @@ print (f"{d}\n {dt3}\n {td3}\n {td4}\n {c}")
 ```
 
     2022-07-23
-     2022-07-13 14:44:59.875538
-     14838 days, 14:44:59.875538
+     2022-07-13 15:12:01.841575
+     14838 days, 15:12:01.841575
      50 days, 0:00:00
      5.0
     
@@ -1075,7 +1073,7 @@ print(s5, s6, t2)
     c:\Works\amaargiru\ipycs
     c:\Works\amaargiru\ipycs\f.txt
     f.txt c:\Works\amaargiru\ipycs ('c:\\Works\\amaargiru\\ipycs\\f', '.txt')
-    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1658137500, st_mtime=1658137500, st_ctime=1654437943)
+    os.stat_result(st_mode=33206, st_ino=25051272927278718, st_dev=3628794147, st_nlink=1, st_uid=0, st_gid=0, st_size=16, st_atime=1658139122, st_mtime=1658139122, st_ctime=1654437943)
     True True False
     ['.git', '.gitignore', '1.bin', '1.json', 'convert_nb_to_md.bat', 'f.txt', 'LICENSE', 'pycallgraph3.png', 'PYCS.ipynb', 'README.md']
     f .txt ('c:\\', 'Works', 'amaargiru', 'ipycs', 'f.txt')
@@ -1108,10 +1106,35 @@ print(mx)
     5
     
 
+### List comprehension
+An elegant approach to create a new list based on the values of an existing list.
+
+
+```python
+# new_list = [expression for member in iterable (if conditional)]
+
+fruits: list = ["Lemon", "Apple", "Banana", "Kiwi", "Watermelon", "Pear"]
+
+e_fruits = [fruit for fruit in fruits if "e" in fruit]
+#                                     ☝ if conditional
+print(e_fruits)
+
+upper_fruits = [fruit.upper() for fruit in fruits]
+#                     ☝ expression
+print(upper_fruits)
+
+```
+
+    ['Lemon', 'Apple', 'Watermelon', 'Pear']
+    ['LEMON', 'APPLE', 'BANANA', 'KIWI', 'WATERMELON', 'PEAR']
+    
+
 ### bisect and binary search
 
 
 ```python
+import bisect
+
 a: list[int] = [12, 6, 8, 19, 1, 33]
 
 a.sort()
@@ -1161,9 +1184,9 @@ print(list(p))
 
 
 ```python
+# pip install pycryptodomex
 import hashlib
 
-# pip install pycryptodomex
 from Cryptodome import Random
 from Cryptodome.Cipher import AES
 from Cryptodome.Util.Padding import pad
@@ -1237,7 +1260,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b',\xed7P\xab\x9eg\x9ds\xc1\x0f\xc1\xc2\x9f\xb6\x93f\x90\x99\tP\xd8\x1c)\x9d\xc1H\x883\xc6I|l\xab\xfb\xd3D\xaf\t\xf9_\xee\x16@\x94\xe99Y'
+    Encrypted message: b'\xce\\\xd3~\xed\x0e?j\xfc\x14\x94U\xf5\xfd\xf9\x7f\xffgK\x9eu\xa6\xa8\xef:\x126\xa73r\x17\x88\x02\xe6\xea*k\xdb\x83\xfc\x8f\rX\x95#}Rt'
     Decrypted message: b'A am the Message'
     
 
@@ -1359,10 +1382,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 96 in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000093?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000093?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000093?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 98 in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000095?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000095?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000095?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
