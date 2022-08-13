@@ -1135,6 +1135,23 @@ print(chunk_fruits)
     [['Lemon', 'Apple'], ['Banana', 'Kiwi'], ['Watermelon', 'Pear']]
     
 
+### Dictionary comprehension
+Creating new dictionaries from existing dictionaries and iterables. A dictionary comprehension is very much like a list comprehension, but we get a dictionary at the end of it, so we need to be assigning key value pairs instead of only values.
+
+
+```python
+# new_dict = {expression for member in iterable (if conditional)}
+
+d: dict[str, str] = {"Italy": "Pizza", "US": "Hot-Dog", "China": "Dim Sum", "South Korea": "Kimchi"}  # Create a dictionary
+
+d2: dict[str, str] = {k: v for k, v in d.items() if "i" in v}  ## Select only elements that contain a letter "i" in value
+print(d2)
+
+```
+
+    {'Italy': 'Pizza', 'China': 'Dim Sum', 'South Korea': 'Kimchi'}
+    
+
 ### bisect and binary search
 
 
@@ -1266,7 +1283,7 @@ if __name__ == '__main__':
 ```
 
     Original message: b'A am the Message'
-    Encrypted message: b'\x171F\xc3\r\x03i\xd0\x97\x81u\x020-\xed\x9c\xefx\xab\xec\xda\xe1\xaf\xe7\xd2\x104\x94\x1f\xbc\xe5(yf#Q\x97\x1e\xd0\xcb;\xd49\xbd\xd4\x1bM\xee'
+    Encrypted message: b'\xdf\xb9j:\xb8;%\xe9\xae\xfe\xd2 \x81w%"\x88[\x9e*\xd4\x8e\x1b\xa5K)\x19\xce]\xd7\x1e]\xb0\x10\x84\x18\x1fOn\xdd\xe3\xf9}\x92F\xc1DB'
     Decrypted message: b'A am the Message'
     
 
@@ -1388,10 +1405,10 @@ raise MyException("My car is broken")
 
     MyException                               Traceback (most recent call last)
 
-    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 98 in <cell line: 4>()
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000095?line=0'>1</a> class MyException(Exception):
-          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000095?line=1'>2</a>     pass
-    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#ch0000095?line=3'>4</a> raise MyException("My car is broken")
+    c:\Works\amaargiru\ipycs\PYCS.ipynb Ячейка 100 in <cell line: 4>()
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#Y166sZmlsZQ%3D%3D?line=0'>1</a> class MyException(Exception):
+          <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#Y166sZmlsZQ%3D%3D?line=1'>2</a>     pass
+    ----> <a href='vscode-notebook-cell:/c%3A/Works/amaargiru/ipycs/PYCS.ipynb#Y166sZmlsZQ%3D%3D?line=3'>4</a> raise MyException("My car is broken")
     
 
     MyException: My car is broken
